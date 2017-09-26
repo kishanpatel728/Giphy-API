@@ -4,14 +4,16 @@ function displayGifButtons(){
     $("#gifButtonsView").empty();
     for (var i= 0; i< sports.length; i++){
         var gifButton = $("<button>");
-        gifButton.addclass("sports");
-        gifButton.addclass("btn btn-primary")
-        gifButton.attr("data-name", sport[i]);
+        gifButton.addClass("sports");
+        gifButton.addClass("btn btn-primary")
+        gifButton.attr("data-name", sports[i]);
+        gifButton.text(sports[i]);
+        $("#gifButtonsView").append(gifButton);
     }
 }
 
 function addNewButton(){
-$("addGif").on("click", function(){
+$("#addGif").on("click", function(){
     var sport = $("#sport-input").val().trim();
     if(action ==""){
         return false;
@@ -33,7 +35,7 @@ sports.pop(sport);
 
 function displayGifs(){
     var sport = $(this).attr("data-name");
-    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + sports + "&api_key=dc6zaTOxFJmzC&limit=10";
+    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + sport + "&api_key=dc6zaTOxFJmzC&limit=10";
     console.log(queryURL); 
     $.ajax({
   url: queryURL,
@@ -70,7 +72,7 @@ displayGifButtons();
 addNewButton();
 removeLastButton();
 
-$(document).on("click", ".sport", displayGifs);
+$(document).on("click", ".sports", displayGifs);
 $(document).on("click", ".image", function(){
     var state = $(this).attr('data-state');
     if ( state == 'still'){
